@@ -1,0 +1,15 @@
+# Django et extensions
+Django==5.2.6
+django-cors-headers==4.3.1
+
+# Système RAG
+sentence-transformers==3.0.1
+chromadb==0.5.3
+pypdf==4.0.1
+
+# Web scraping
+requests==2.31.0
+beautifulsoup4==4.12.2
+
+# Utilitaires
+python-dotenv==1.0.0
