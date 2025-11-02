@@ -1,24 +1,71 @@
 # Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+venv/
+env/
 .env/
+ENV/
+.venv
 
 # Django
+*.log
 db.sqlite3
+db.sqlite3-journal
+*.pot
+*.pyc
+local_settings.py
+media/
+staticfiles/
 
-# Node.js
+# ChromaDB (base de données vectorielle)
+chroma_db/
+
+# Documents PDF 
+pdf/
+*.pdf
+
+# Node.js / Vue.js
 node_modules/
 dist/
 build/
+.npm
+*.tgz
+package-lock.json 
 
 # IDE
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
+.DS_Store
 
-# Logs
-*.log
+# Environment variables
+.env
+.env.local
+.env.*.local
 
-# Other
+# Scripts système
 *.bat
-# rag_embeddings (1).py
 *.sh
+
+# Fichiers temporaires
+*.log
+*.tmp
+*.temp
+urls.txt
+
+# Autres
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
