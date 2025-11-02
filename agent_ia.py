@@ -1,6 +1,7 @@
 """
 Système RAG pour Documents Administratifs
 Création d'embeddings et recherche sémantique
+FIX: Force l'utilisation du CPU pour les embeddings
 """
 
 # Installation requise (à exécuter une fois):
@@ -34,7 +35,10 @@ class RAGDocumentProcessor:
             ollama_host: URL du serveur Ollama (défaut: local)
         """
         print(f"📥 Chargement du modèle d'embeddings: {model_name}")
-        self.embedding_model = SentenceTransformer(model_name)
+        
+        # ⚠️ FIX CRITIQUE: Forcer l'utilisation du CPU
+        print("🔧 Configuration: Embeddings sur CPU (GPU incompatible)")
+        self.embedding_model = SentenceTransformer(model_name, device='cpu')
         
         # Base de données vectorielle locale
         # Si db_path n'est pas fourni, utiliser le chemin relatif
@@ -139,32 +143,29 @@ class RAGDocumentProcessor:
                 chunks = self.decouper_texte(texte)
                 print(f"    ✂️  {len(chunks)} chunks créés")
                 
-                # ============ ÉTAPE D'EMBEDDING COMMENTÉE ============
-                # Cette étape est commentée pour l'instant car elle prend beaucoup de temps
-                # Décommenter quand vous êtes prêt à créer les embeddings
+                # Créer les embeddings
+                print(f"    🧮 Création des embeddings (CPU)...")
+                embeddings = self.embedding_model.encode(chunks, show_progress_bar=False)
                 
-                # # Créer les embeddings
-                # embeddings = self.embedding_model.encode(chunks, show_progress_bar=False)
-                # 
-                # # Ajouter à la base vectorielle
-                # ids = [f"{fichier.stem}_{i}" for i in range(len(chunks))]
-                # metadatas = [
-                #     {
-                #         "source": fichier.name,
-                #         "chunk_id": i,
-                #         "type": fichier.suffix
-                #     } for i in range(len(chunks))
-                # ]
-                # 
-                # self.collection.add(
-                #     embeddings=embeddings.tolist(),
-                #     documents=chunks,
-                #     metadatas=metadatas,
-                #     ids=ids
-                # )
+                # Ajouter à la base vectorielle
+                ids = [f"{fichier.stem}_{i}" for i in range(len(chunks))]
+                metadatas = [
+                    {
+                        "source": fichier.name,
+                        "chunk_id": i,
+                        "type": fichier.suffix
+                    } for i in range(len(chunks))
+                ]
+                
+                self.collection.add(
+                    embeddings=embeddings.tolist(),
+                    documents=chunks,
+                    metadatas=metadatas,
+                    ids=ids
+                )
                 
                 documents_traites += 1
-                print(f"    ✅ Document traité (embeddings commentés)")
+                print(f"    ✅ Document traité et indexé")
                 
             except Exception as e:
                 print(f"    ❌ Erreur: {e}")
@@ -211,7 +212,7 @@ class RAGDocumentProcessor:
         Returns:
             Dict avec la réponse générée, les sources et les contextes utilisés
         """
-        print(f"\n🔍 Recherche de contexte pour: {question}")
+        print(f"\n🔎 Recherche de contexte pour: {question}")
         
         # 1. Rechercher les passages pertinents
         contextes = self.rechercher(question, n_resultats=n_contextes)
@@ -455,7 +456,7 @@ if __name__ == "__main__":
     
     # 4. Tester la recherche
     print("\n" + "="*60)
-    print("🔍 TEST DE RECHERCHE")
+    print("🔎 TEST DE RECHERCHE")
     print("="*60)
     
     question = "Comment obtenir un passeport ?"
