@@ -1,10 +1,9 @@
-import { Button } from "@/components/ui/button";
-import React from "react";
+import ChatUI from "@/components/chat/ChatUI";
 
 export default function Index() {
 	return (
-		<div className="w-full h-screen flex justify-center items-center">
-			<Button>Button</Button>
-		</div>
+		<>
+			<ChatUI />
+		</>
 	);
 }
