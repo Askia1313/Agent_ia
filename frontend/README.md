@@ -1,73 +1,80 @@
-# React + TypeScript + Vite
+# Application Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ceci est le frontend pour le projet Agent_ia, construit avec React, Vite, et TypeScript. Il fournit l'interface utilisateur pour interagir avec l'agent IA.
 
-Currently, two official plugins are available:
+## Stack Technique
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Framework**: [React](https://react.dev/)
+- **Outil de Build**: [Vite](https://vitejs.dev/)
+- **Langage**: [TypeScript](https://www.typescriptlang.org/)
+- **Composants UI**: [shadcn/ui](https://ui.shadcn.com/)
+- **Style**: [Tailwind CSS](https://tailwindcss.com/)
+- **Client HTTP**: [Axios](https://axios-http.com/)
+- **Routage**: [React Router](https://reactrouter.com/)
+- **Gestion d'état**: [TanStack Query (React Query)](https://tanstack.com/query/latest)
 
-## React Compiler
+## Structure du Projet
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Le répertoire `src` contient le code source principal de l'application.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── assets/         # Fichiers statiques comme les images et les SVG
+├── components/     # Composants UI réutilisables
+│   ├── chat/       # Composants spécifiques à l'interface de chat
+│   └── ui/         # Composants UI génériques de shadcn/ui
+├── hooks/          # Hooks React personnalisés
+├── lib/            # Fonctions utilitaires
+├── pages/          # Composants de page de haut niveau
+└── services/       # Définitions des services API pour la communication avec le backend
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Scripts Disponibles
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Installation
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Pour installer les dépendances nécessaires, exécutez la commande suivante depuis le répertoire `frontend` :
+
+```bash
+npm install
 ```
+
+### Serveur de Développement
+
+Pour démarrer le serveur de développement local avec rechargement à chaud, exécutez :
+
+```bash
+npm run dev
+```
+
+L'application sera disponible à l'adresse `http://localhost:5173` par défaut (ou le prochain port disponible).
+
+### Linting
+
+Pour vérifier le code à la recherche de problèmes de linting, exécutez :
+
+```bash
+npm run lint
+```
+
+### Build de Production
+
+Pour compiler l'application pour la production, exécutez :
+
+```bash
+npm run build
+```
+
+Cette commande transpile le code TypeScript et empaquette l'application dans le répertoire `dist`.
+
+### Aperçu du Build de Production
+
+Pour servir le build de production localement pour un aperçu, exécutez :
+
+```bash
+npm run preview
+```
+
+## Déploiement
+
+Le frontend est configuré pour être déployé avec Docker. Les fichiers `Dockerfile` et `nginx.conf` sont configurés pour créer un conteneur prêt pour la production qui sert les fichiers statiques générés par Vite.
