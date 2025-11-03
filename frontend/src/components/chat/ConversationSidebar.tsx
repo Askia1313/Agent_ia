@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "../ui/button";
 import { Menu, MessageSquare, Plus } from "lucide-react";
 import { ScrollArea } from "../ui/scroll-area";
