@@ -2,7 +2,7 @@ import { useState } from "react";
 import ChatContainer from "./ChatContainer";
 import ChatInput from "./ChatInput";
 import ConversationSidebar from "./ConversationSidebar";
-import { useChatQuestion, useVerifierStatut } from "@/hooks/useRagApi";
+import { useChatQuestion } from "@/hooks/useRagApi";
 //import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2 } from "lucide-react";
 
@@ -43,9 +43,6 @@ export default function ChatUI() {
 			console.error("Erreur:", error);
 		},
 	});
-
-	// Hook pour vérifier le statut (optionnel)
-	const { data: statusData } = useVerifierStatut(true, 60000); // Refetch toutes les 60s
 
 	const activeConversation = conversations.find(
 		(conv) => conv.id === activeConversationId
@@ -186,11 +183,11 @@ export default function ChatUI() {
 
 			<div className="flex-1 flex flex-col min-h-0">
 				{/* Afficher le statut de la DB (optionnel) */}
-				{statusData && statusData.success && (
+				{/* {statusData && statusData.success && (
 					<div className="p-2 bg-muted/50 text-xs text-center text-muted-foreground">
 						📚 {statusData.nombre_chunks} documents indexés
 					</div>
-				)}
+				)} */}
 
 				<ChatContainer messages={activeConversation?.messages || []} />
 

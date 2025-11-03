@@ -3,13 +3,8 @@
  * Gestion optimisée du cache, loading, et erreurs
  */
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-	ragApi,
-	type QuestionResponse,
-	type StatutResponse,
-	type HealthResponse,
-} from "../services/ragApi";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ragApi, type QuestionResponse } from "../services/ragApi";
 
 /**
  * Hook pour poser une question au système RAG
@@ -49,16 +44,16 @@ export function usePoserQuestion() {
  * const { data, isLoading, error, refetch } = useVerifierStatut();
  * console.log(`${data?.nombre_chunks} chunks indexés`);
  */
-export function useVerifierStatut(enabled = true, refetchInterval?: number) {
-	return useQuery<StatutResponse>({
-		queryKey: ["rag-statut"],
-		queryFn: () => ragApi.verifierStatut(),
-		enabled,
-		refetchInterval,
-		staleTime: 5 * 60 * 1000, // Les données sont considérées fraîches pendant 5 minutes
-		gcTime: 10 * 60 * 1000, // Garbage collection après 10 minutes
-	});
-}
+// export function useVerifierStatut(enabled = true, refetchInterval?: number) {
+// 	return useQuery<StatutResponse>({
+// 		queryKey: ["rag-statut"],
+// 		queryFn: () => ragApi.verifierStatut(),
+// 		enabled,
+// 		refetchInterval,
+// 		staleTime: 5 * 60 * 1000, // Les données sont considérées fraîches pendant 5 minutes
+// 		gcTime: 10 * 60 * 1000, // Garbage collection après 10 minutes
+// 	});
+// }
 
 /**
  * Hook pour vérifier la santé de l'API
@@ -69,16 +64,16 @@ export function useVerifierStatut(enabled = true, refetchInterval?: number) {
  * const { data, isLoading } = useHealthCheck();
  * console.log(data?.status); // 'ok' ou 'error'
  */
-export function useHealthCheck(enabled = true) {
-	return useQuery<HealthResponse>({
-		queryKey: ["rag-health"],
-		queryFn: () => ragApi.healthCheck(),
-		enabled,
-		retry: 3, // Réessayer 3 fois en cas d'échec
-		//retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
-		//staleTime: 1 * 60 * 1000, // 1 minute
-	});
-}
+// export function useHealthCheck(enabled = true) {
+// 	return useQuery<HealthResponse>({
+// 		queryKey: ["rag-health"],
+// 		queryFn: () => ragApi.healthCheck(),
+// 		enabled,
+// 		retry: 3, // Réessayer 3 fois en cas d'échec
+// 		//retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+// 		//staleTime: 1 * 60 * 1000, // 1 minute
+// 	});
+// }
 
 /**
  * Hook personnalisé combinant question et gestion de l'historique

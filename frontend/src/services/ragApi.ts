@@ -6,7 +6,7 @@
 import axios, { type AxiosInstance } from "axios";
 
 // Configuration de base pour les requêtes
-const API_BASE_URL = "http://localhost:8000/api";
+const API_BASE_URL = "/api";
 
 // Créer une instance axios avec la configuration par défaut
 const apiClient: AxiosInstance = axios.create({

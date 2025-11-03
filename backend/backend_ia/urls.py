@@ -13,5 +13,5 @@ urlpatterns = [
     
     # API endpoints pour le système RAG
     # Tous les endpoints commencent par /api/
-    path('api/', include('Communication.urls')),
+    path('api/', include('communication.urls')),
 ]

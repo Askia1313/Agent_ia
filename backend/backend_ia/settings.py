@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Communication',
+    'communication',
     'corsheaders',
 ]
 
@@ -61,12 +61,15 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://127.0.0.1:8080",
     "http://127.0.0.1:5173",
+    "http://localhost",
+    "http://localhost:80",
+    "http://frontend",
 ]
 
 # Autoriser les credentials (cookies, etc.)
 CORS_ALLOW_CREDENTIALS = True
 
-ROOT_URLCONF = 'Backend_ia.urls'
+ROOT_URLCONF = 'backend_ia.urls'
 
 TEMPLATES = [
     {
@@ -83,7 +86,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Backend_ia.wsgi.application'
+WSGI_APPLICATION = 'backend_ia.wsgi.application'
 
 
 # Database

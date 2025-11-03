@@ -1,0 +1,44 @@
+services:
+    backend:
+        build: ./backend
+        container_name: backend
+        ports:
+            - "8000:8000"
+        volumes:
+            - ./pdf:/app/pdf
+            - ./chroma_db:/app/chroma_db # ⚠️ IMPORTANT : Monter chroma_db
+        environment:
+            - OLLAMA_HOST=http://host.docker.internal:11434
+            - DJANGO_SETTINGS_MODULE=backend_ia.settings
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        networks:
+            - app-network
+        command: sh -c "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"
+        depends_on:
+            - chroma
+
+    frontend:
+        build: ./frontend
+        container_name: frontend
+        ports:
+            - "80:80"
+        depends_on:
+            - backend
+        networks:
+            - app-network
+
+    chroma:
+        image: chromadb/chroma
+        container_name: chroma
+        platform: linux/amd64
+        ports:
+            - "8001:8000"
+        volumes:
+            - ./chroma_db:/chroma/chroma
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge

@@ -11,27 +11,26 @@ import sys
 import os
 from pathlib import Path
 
-# Ajouter le chemin parent pour importer agent_ia
-base_dir = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(base_dir))
-
-from agent_ia import RAGDocumentProcessor
+from .agent_ia import RAGDocumentProcessor
 
 # Initialiser le système RAG une seule fois avec le chemin absolu vers la base de données
 print("🚀 Initialisation du système RAG...")
-print(f"📂 Répertoire de base: {base_dir}")
 
 # Chemin absolu vers la base de données ChromaDB
-db_path = os.path.join(base_dir, "chroma_db")
+db_path = "/app/chroma_db"
 print(f"📂 Chemin de la base de données: {db_path}")
 
-rag_system = RAGDocumentProcessor(db_path=db_path)
+rag_system = RAGDocumentProcessor(
+    db_path=db_path,
+    ollama_host=os.getenv("OLLAMA_HOST")
+)
 print("✅ Système RAG prêt\n")
 
 
 @csrf_exempt
 @require_http_methods(["POST"])
 def poser_question(request):
+    print("Request received at poser_question")
     """
     Endpoint pour poser une question au système RAG
     

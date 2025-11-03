@@ -1,0 +1,15 @@
+# Ignorer les répertoires et fichiers liés à Git
+.git
+.gitignore
+
+# Ignorer les répertoires de cache Python
+__pycache__/
+
+# Ignorer les fichiers de configuration de l'IDE
+.idea/
+
+# Ignorer les fichiers d'environnement
+.env
+
+# Ignorer la base de données SQLite si elle est utilisée localement
+db.sqlite3

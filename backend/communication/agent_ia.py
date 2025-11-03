@@ -24,7 +24,7 @@ import ollama
 
 class RAGDocumentProcessor:
     def __init__(self, model_name="sentence-transformers/paraphrase-multilingual-mpnet-base-v2", db_path=None, 
-                 llm_model="mistral:latest", ollama_host=None):
+                 llm_model="mistral:latest", ollama_host=os.getenv("OLLAMA_HOST")):
         """
         Initialise le système RAG avec un modèle d'embeddings multilingue
         
