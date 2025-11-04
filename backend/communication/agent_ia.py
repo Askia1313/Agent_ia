@@ -38,7 +38,8 @@ class RAGDocumentProcessor:
         
         # ⚠️ FIX CRITIQUE: Forcer l'utilisation du CPU
         print("🔧 Configuration: Embeddings sur CPU (GPU incompatible)")
-        self.embedding_model = SentenceTransformer(model_name, device='cpu')
+       # self.embedding_model = SentenceTransformer(model_name, device='cpu')
+        self.embedding_model = SentenceTransformer(model_name)
         
         # Base de données vectorielle locale
         # Si db_path n'est pas fourni, utiliser le chemin relatif
@@ -46,6 +47,7 @@ class RAGDocumentProcessor:
             db_path = "./chroma_db"
         
         print(f"📂 Chemin de la base de données: {db_path}")
+        print(f"📂 Type de chemin: {type(db_path)}")
         self.chroma_client = chromadb.PersistentClient(path=db_path)
         self.collection = self.chroma_client.get_or_create_collection(
             name="documents_administratifs",
@@ -144,7 +146,7 @@ class RAGDocumentProcessor:
                 print(f"    ✂️  {len(chunks)} chunks créés")
                 
                 # Créer les embeddings
-                print(f"    🧮 Création des embeddings (CPU)...")
+                print(f"    🧮 Création des embeddings ...")
                 embeddings = self.embedding_model.encode(chunks, show_progress_bar=False)
                 
                 # Ajouter à la base vectorielle
@@ -441,17 +443,17 @@ if __name__ == "__main__":
     print("\n" + "="*60)
     print("📄 ÉTAPE 1: TRAITEMENT DES PDF")
     print("="*60)
-    rag.traiter_dossier("./pdf")
+    rag.traiter_dossier("../../pdf")
     
     # 3. Traiter les URLs depuis un fichier texte
     print("\n" + "="*60)
     print("🌐 ÉTAPE 2: SCRAPING WEB")
     print("="*60)
     # Créez un fichier "urls.txt" avec une URL par ligne
-    if os.path.exists("./urls.txt"):
-        rag.traiter_fichier_urls("./urls.txt")
+    if os.path.exists("../../urls.txt"):
+        rag.traiter_fichier_urls("../../urls.txt")
     else:
-        print("⚠️  Fichier './urls.txt' non trouvé")
+        print("⚠️  Fichier '../../urls.txt' non trouvé")
         print("   Créez un fichier 'urls.txt' avec une URL par ligne")
     
     # 4. Tester la recherche

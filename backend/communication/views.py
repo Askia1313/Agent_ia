@@ -10,18 +10,20 @@ import json
 import sys
 import os
 from pathlib import Path
-
 from .agent_ia import RAGDocumentProcessor
+
 
 # Initialiser le système RAG une seule fois avec le chemin absolu vers la base de données
 print("🚀 Initialisation du système RAG...")
 
 # Chemin absolu vers la base de données ChromaDB
-db_path = "/app/chroma_db"
+# Obtenir le chemin du fichier actuel et remonter à la racine du projet
+db_path_dev = Path(__file__).resolve().parent.parent.parent / "chroma_db"
+db_path = os.getenv("DB_PATH", default=str(db_path_dev))
 print(f"📂 Chemin de la base de données: {db_path}")
 
 rag_system = RAGDocumentProcessor(
-    db_path=db_path,
+    db_path=str(db_path),
     ollama_host=os.getenv("OLLAMA_HOST")
 )
 print("✅ Système RAG prêt\n")

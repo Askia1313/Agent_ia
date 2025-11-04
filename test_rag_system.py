@@ -15,146 +15,147 @@ API_URL = "http://localhost:8000/api/question/"
 N_RESULTATS = 3
 
 # Dataset de test : 20 questions avec réponses attendues
+# Basé sur les procédures administratives réelles au Burkina Faso
 TEST_DATASET = [
     {
         "id": 1,
         "question": "Comment obtenir un passeport au Burkina Faso ?",
-        "mots_cles_attendus": ["passeport", "pièce", "identité", "photo", "mairie"],
+        "mots_cles_attendus": ["passeport", "pièce", "identité", "photo", "demande", "délai"],
         "sources_pertinentes": ["passeport", "service-public", "mae.gov.bf"],
         "categorie": "Documents d'identité"
     },
     {
         "id": 2,
-        "question": "Quelles sont les démarches pour obtenir un certificat de nationalité ?",
-        "mots_cles_attendus": ["certificat", "nationalité", "acte", "naissance", "tribunal"],
-        "sources_pertinentes": ["certificat-nationalite", "nationalite", "ecertificat"],
+        "question": "Quelles sont les démarches pour obtenir une CNIB (Carte Nationale d'Identité Burkinabè) ?",
+        "mots_cles_attendus": ["CNIB", "carte", "identité", "acte", "naissance", "photo", "empreintes"],
+        "sources_pertinentes": ["cnib", "carte", "identite", "onea"],
         "categorie": "Documents d'identité"
     },
     {
         "id": 3,
-        "question": "Comment faire une demande de casier judiciaire ?",
-        "mots_cles_attendus": ["casier", "judiciaire", "demande", "tribunal", "extrait"],
-        "sources_pertinentes": ["casier-judiciaire", "ecasier", "justice"],
-        "categorie": "Documents administratifs"
+        "question": "Comment obtenir un acte de mariage ?",
+        "mots_cles_attendus": ["acte", "mariage", "mairie", "état civil", "copie", "extrait"],
+        "sources_pertinentes": ["mariage", "acte", "etat-civil", "mairie"],
+        "categorie": "État civil"
     },
     {
         "id": 4,
-        "question": "Quels documents sont nécessaires pour une carte d'identité ?",
-        "mots_cles_attendus": ["carte", "identité", "acte", "naissance", "photo", "certificat"],
-        "sources_pertinentes": ["carte", "identite", "cni"],
-        "categorie": "Documents d'identité"
-    },
-    {
-        "id": 5,
-        "question": "Comment renouveler un passeport expiré ?",
-        "mots_cles_attendus": ["renouveler", "passeport", "expiré", "ancien", "nouveau"],
-        "sources_pertinentes": ["passeport", "renouvellement"],
-        "categorie": "Documents d'identité"
-    },
-    {
-        "id": 6,
-        "question": "Où s'adresser pour obtenir un acte de naissance ?",
-        "mots_cles_attendus": ["acte", "naissance", "mairie", "état civil", "copie"],
+        "question": "Où et comment obtenir un acte de naissance ?",
+        "mots_cles_attendus": ["acte", "naissance", "mairie", "état civil", "copie", "lieu"],
         "sources_pertinentes": ["acte", "naissance", "etat-civil", "mairie"],
         "categorie": "État civil"
     },
     {
-        "id": 7,
-        "question": "Quelles sont les conditions pour obtenir un visa ?",
-        "mots_cles_attendus": ["visa", "passeport", "demande", "ambassade", "consulat"],
-        "sources_pertinentes": ["visa", "mae.gov.bf", "affaires-etrangeres"],
-        "categorie": "Voyage"
+        "id": 5,
+        "question": "Quelles sont les conditions pour obtenir un permis de travail au Burkina Faso ?",
+        "mots_cles_attendus": ["permis", "travail", "étranger", "autorisation", "emploi", "ministère"],
+        "sources_pertinentes": ["permis", "travail", "fonction-publique", "emploi"],
+        "categorie": "Travail et Emploi"
     },
     {
-        "id": 8,
-        "question": "Comment obtenir une attestation de résidence ?",
-        "mots_cles_attendus": ["attestation", "résidence", "domicile", "mairie", "justificatif"],
-        "sources_pertinentes": ["attestation", "residence", "domicile"],
+        "id": 6,
+        "question": "Comment faire une demande de permis de construire ?",
+        "mots_cles_attendus": ["permis", "construire", "construction", "plan", "autorisation", "mairie"],
+        "sources_pertinentes": ["permis", "construire", "urbanisme", "matd"],
+        "categorie": "Urbanisme"
+    },
+    {
+        "id": 7,
+        "question": "Comment faire légaliser un document ou une signature ?",
+        "mots_cles_attendus": ["légalisation", "signature", "document", "mairie", "authentification", "tampon"],
+        "sources_pertinentes": ["legalisation", "signature", "authentification", "mairie"],
         "categorie": "Documents administratifs"
     },
     {
+        "id": 8,
+        "question": "Quelles sont les démarches pour établir une procuration ?",
+        "mots_cles_attendus": ["procuration", "mandat", "notaire", "signature", "représentation", "légalisation"],
+        "sources_pertinentes": ["procuration", "notaire", "mandat", "justice"],
+        "categorie": "Documents juridiques"
+    },
+    {
         "id": 9,
-        "question": "Quels sont les documents pour s'inscrire à la fonction publique ?",
-        "mots_cles_attendus": ["fonction publique", "concours", "diplôme", "inscription", "dossier"],
-        "sources_pertinentes": ["fonction-publique", "concours", "recrutement"],
-        "categorie": "Emploi"
+        "question": "Comment obtenir une licence de travail pour un étranger ?",
+        "mots_cles_attendus": ["licence", "travail", "étranger", "carte", "séjour", "autorisation"],
+        "sources_pertinentes": ["licence", "travail", "etranger", "fonction-publique"],
+        "categorie": "Travail et Emploi"
     },
     {
         "id": 10,
-        "question": "Comment faire une demande d'extrait de mariage ?",
-        "mots_cles_attendus": ["extrait", "mariage", "acte", "mairie", "état civil"],
-        "sources_pertinentes": ["mariage", "acte", "etat-civil"],
-        "categorie": "État civil"
+        "question": "Quelles sont les conditions pour obtenir un visa de séjour au Burkina Faso ?",
+        "mots_cles_attendus": ["visa", "séjour", "passeport", "carte", "résidence", "immigration"],
+        "sources_pertinentes": ["visa", "sejour", "mae.gov.bf", "immigration"],
+        "categorie": "Immigration"
     },
     {
         "id": 11,
-        "question": "Quelles démarches pour obtenir une carte grise ?",
-        "mots_cles_attendus": ["carte grise", "véhicule", "immatriculation", "certificat"],
-        "sources_pertinentes": ["carte-grise", "vehicule", "immatriculation"],
-        "categorie": "Véhicules"
+        "question": "Comment obtenir un certificat de vie ?",
+        "mots_cles_attendus": ["certificat", "vie", "mairie", "attestation", "vivant", "pensionné"],
+        "sources_pertinentes": ["certificat", "vie", "mairie", "action-sociale"],
+        "categorie": "Documents administratifs"
     },
     {
         "id": 12,
-        "question": "Comment obtenir un permis de conduire au Burkina Faso ?",
-        "mots_cles_attendus": ["permis", "conduire", "examen", "auto-école", "code"],
-        "sources_pertinentes": ["permis", "conduire", "transport"],
-        "categorie": "Véhicules"
-    },
-    {
-        "id": 13,
-        "question": "Quels sont les documents pour une demande de bourse d'études ?",
-        "mots_cles_attendus": ["bourse", "études", "étudiant", "dossier", "inscription"],
-        "sources_pertinentes": ["bourse", "etudes", "education"],
-        "categorie": "Éducation"
-    },
-    {
-        "id": 14,
-        "question": "Comment faire une déclaration de naissance ?",
-        "mots_cles_attendus": ["déclaration", "naissance", "mairie", "délai", "certificat"],
-        "sources_pertinentes": ["naissance", "declaration", "etat-civil"],
+        "question": "Quelles sont les démarches pour obtenir un certificat de célibat ?",
+        "mots_cles_attendus": ["certificat", "célibat", "mairie", "état civil", "non marié", "attestation"],
+        "sources_pertinentes": ["certificat", "celibat", "etat-civil", "mairie"],
         "categorie": "État civil"
     },
     {
+        "id": 13,
+        "question": "Comment obtenir un certificat de décès ?",
+        "mots_cles_attendus": ["certificat", "décès", "acte", "mort", "mairie", "état civil", "médecin"],
+        "sources_pertinentes": ["certificat", "deces", "acte", "etat-civil"],
+        "categorie": "État civil"
+    },
+    {
+        "id": 14,
+        "question": "Comment renouveler un passeport expiré ?",
+        "mots_cles_attendus": ["renouveler", "passeport", "expiré", "ancien", "nouveau", "validité"],
+        "sources_pertinentes": ["passeport", "renouvellement", "mae.gov.bf"],
+        "categorie": "Documents d'identité"
+    },
+    {
         "id": 15,
-        "question": "Quelles sont les démarches pour obtenir une pension de retraite ?",
-        "mots_cles_attendus": ["pension", "retraite", "dossier", "CARFO", "CNSS"],
-        "sources_pertinentes": ["retraite", "pension", "social"],
-        "categorie": "Protection sociale"
+        "question": "Quels documents sont nécessaires pour faire une déclaration de naissance ?",
+        "mots_cles_attendus": ["déclaration", "naissance", "mairie", "délai", "certificat", "médical", "parents"],
+        "sources_pertinentes": ["naissance", "declaration", "etat-civil", "mairie"],
+        "categorie": "État civil"
     },
     {
         "id": 16,
-        "question": "Comment obtenir un certificat médical administratif ?",
-        "mots_cles_attendus": ["certificat", "médical", "médecin", "santé", "administratif"],
-        "sources_pertinentes": ["certificat", "medical", "sante"],
-        "categorie": "Santé"
+        "question": "Comment obtenir un casier judiciaire au Burkina Faso ?",
+        "mots_cles_attendus": ["casier", "judiciaire", "demande", "tribunal", "extrait", "bulletin"],
+        "sources_pertinentes": ["casier-judiciaire", "ecasier", "justice"],
+        "categorie": "Documents judiciaires"
     },
     {
         "id": 17,
-        "question": "Quels documents pour une demande d'aide sociale ?",
-        "mots_cles_attendus": ["aide sociale", "dossier", "assistance", "vulnérable"],
-        "sources_pertinentes": ["aide", "social", "action-sociale"],
-        "categorie": "Protection sociale"
+        "question": "Quelles sont les étapes pour obtenir un certificat de nationalité burkinabè ?",
+        "mots_cles_attendus": ["certificat", "nationalité", "burkinabè", "tribunal", "acte", "naissance"],
+        "sources_pertinentes": ["certificat-nationalite", "nationalite", "ecertificat"],
+        "categorie": "Documents d'identité"
     },
     {
         "id": 18,
-        "question": "Comment faire une légalisation de signature ?",
-        "mots_cles_attendus": ["légalisation", "signature", "mairie", "document", "authentification"],
-        "sources_pertinentes": ["legalisation", "signature", "authentification"],
+        "question": "Comment faire une demande d'attestation de résidence ?",
+        "mots_cles_attendus": ["attestation", "résidence", "domicile", "mairie", "justificatif", "adresse"],
+        "sources_pertinentes": ["attestation", "residence", "domicile", "mairie"],
         "categorie": "Documents administratifs"
     },
     {
         "id": 19,
-        "question": "Quelles sont les démarches pour créer une entreprise ?",
-        "mots_cles_attendus": ["entreprise", "création", "RCCM", "statuts", "immatriculation"],
-        "sources_pertinentes": ["entreprise", "creation", "commerce"],
-        "categorie": "Entreprise"
+        "question": "Quels sont les documents requis pour un mariage civil au Burkina Faso ?",
+        "mots_cles_attendus": ["mariage", "civil", "acte", "naissance", "certificat", "célibat", "mairie"],
+        "sources_pertinentes": ["mariage", "civil", "etat-civil", "mairie"],
+        "categorie": "État civil"
     },
     {
         "id": 20,
-        "question": "Comment obtenir un certificat de non-condamnation ?",
-        "mots_cles_attendus": ["certificat", "non-condamnation", "casier", "judiciaire", "tribunal"],
-        "sources_pertinentes": ["certificat", "casier", "judiciaire"],
-        "categorie": "Documents administratifs"
+        "question": "Comment obtenir une carte de séjour pour étranger au Burkina Faso ?",
+        "mots_cles_attendus": ["carte", "séjour", "étranger", "visa", "résidence", "immigration", "police"],
+        "sources_pertinentes": ["carte", "sejour", "etranger", "immigration"],
+        "categorie": "Immigration"
     }
 ]
 
@@ -197,7 +198,7 @@ class RAGTester:
             elapsed_time = time.time() - start_time
             return {"success": False, "error": str(e)}, elapsed_time
     
-    def evaluer_precision_retrieval(self, sources_obtenues: List[Dict], sources_pertinentes: List[str]) -> float:
+    def evaluer_precision_retrieval(self, sources_obtenues: List, sources_pertinentes: List[str]) -> float:
         """
         Évalue la précision du retrieval
         
@@ -207,7 +208,15 @@ class RAGTester:
         if not sources_obtenues:
             return 0.0
         
-        sources_texte = [s.get('source', '').lower() for s in sources_obtenues]
+        # Gérer les deux formats possibles : liste de dicts ou liste de strings
+        sources_texte = []
+        for s in sources_obtenues:
+            if isinstance(s, dict):
+                sources_texte.append(s.get('source', '').lower())
+            elif isinstance(s, str):
+                sources_texte.append(s.lower())
+            else:
+                sources_texte.append(str(s).lower())
         
         pertinents_trouves = 0
         for source_pertinente in sources_pertinentes:
@@ -298,7 +307,10 @@ class RAGTester:
         
         print(f"\n📚 SOURCES ({len(sources)}):")
         for i, source in enumerate(sources, 1):
-            print(f"  {i}. {source.get('source', 'N/A')} (distance: {source.get('distance', 0):.3f})")
+            if isinstance(source, dict):
+                print(f"  {i}. {source.get('source', 'N/A')} (distance: {source.get('distance', 0):.3f})")
+            else:
+                print(f"  {i}. {source}")
         
         return {
             "id": test_case['id'],
@@ -515,17 +527,26 @@ def main():
     # Vérifier que l'API est accessible
     print("\n🔍 Vérification de l'API...")
     try:
-        response = requests.get("http://localhost:8000/api/health/", timeout=5)
-        if response.status_code == 200:
+        # Tester avec une requête simple
+        response = requests.post(
+            "http://localhost:8000/api/question/",
+            json={"question": "test", "n_resultats": 1},
+            timeout=5
+        )
+        if response.status_code in [200, 400]:  # 200 OK ou 400 Bad Request (mais serveur répond)
             print("✅ API accessible")
         else:
             print(f"⚠️  API répond avec le code: {response.status_code}")
+            print("⚠️  Les tests vont continuer mais peuvent échouer...")
     except Exception as e:
         print(f"❌ Impossible de contacter l'API: {e}")
         print("\n💡 Assurez-vous que le backend Django est démarré:")
         print("   cd backend")
         print("   python manage.py runserver")
-        return
+        print("\n⚠️  Voulez-vous continuer quand même? (O/N)")
+        choix = input().strip().upper()
+        if choix != "O":
+            return
     
     # Créer le testeur
     tester = RAGTester(api_url=API_URL, n_resultats=N_RESULTATS)

@@ -8,6 +8,8 @@ __pycache__/
 dist/
 build/
 *.egg
+rapport_test_rag.json
+
 
 # Virtual Environment
 venv/
