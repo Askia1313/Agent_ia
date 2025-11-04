@@ -30,8 +30,8 @@ staticfiles/
 chroma_db/
 
 # Documents PDF 
-pdf/
-*.pdf
+# pdf/
+# *.pdf
 
 # Node.js / Vue.js
 node_modules/
