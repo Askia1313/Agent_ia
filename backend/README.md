@@ -109,12 +109,12 @@ pip install -r requirements.txt
 
 ### 4. Préparer la base de données RAG
 
-Avant de démarrer le serveur, vous devez indexer vos documents :
+Avant de démarrer le serveur, vous devez  :
 
 ```bash
 # Depuis le dossier parent "agent ia"
 cd ..
-python launcher.py
+python communication/agent_ia.py
 ```
 
 Cela va :

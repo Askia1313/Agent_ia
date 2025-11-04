@@ -12,6 +12,7 @@ Agent IA intelligent capable de répondre et de guider les utilisateurs dans les
 - [Prérequis](#-prérequis)
 - [Installation](#-installation)
 - [Utilisation](#-utilisation)
+- [Tests et Évaluation du Système RAG](#-tests-et-évaluation-du-système-rag)
 - [Structure du projet](#-structure-du-projet)
 - [Configuration](#-configuration)
 - [Déploiement Docker](#-déploiement-docker)
@@ -202,13 +203,7 @@ npm install
 
 ### 4. Indexation des données
 
-Avant de démarrer l'application, vous devez indexer vos documents :
 
-```bash
-# Depuis la racine du projet
-cd ..
-python launcher.py
-```
 
 **Choisissez l'option appropriée dans le menu :**
 - L'option 1 : Lancer le backend
@@ -221,14 +216,6 @@ python launcher.py
 
 ## 💻 Utilisation
 
-### Méthode 1 : Utiliser le launcher (Recommandé)
-
-Le script `launcher.py` facilite le démarrage de l'application :
-
-```bash
-# Depuis la racine du projet
-python launcher.py
-```
 
 **Menu interactif :**
 ```
@@ -248,6 +235,7 @@ python launcher.py
 cd backend
 venv\Scripts\activate  # Windows
 source venv/bin/activate  # Linux/macOS
+python communication\agent_ia.py
 python manage.py runserver
 ```
 
@@ -257,7 +245,7 @@ Le backend sera accessible sur **http://localhost:8000**
 
 ```bash
 # Terminal 2 - Frontend
-cd Frontend
+cd frontend
 npm run dev
 ```
 
@@ -283,6 +271,142 @@ ollama serve
 
 ---
 
+## 🧪 Tests et Évaluation du Système RAG
+
+Le projet inclut un script de test complet (`test_rag_system.py`) qui permet d'évaluer les performances du système RAG avec 20 questions de test couvrant différentes catégories de procédures administratives.
+
+### Fonctionnalités du script de test
+
+- **20 questions de test** couvrant 6 catégories :
+  - Documents d'identité (passeport, CNIB, certificat de nationalité)
+  - État civil (acte de naissance, mariage, décès)
+  - Travail et Emploi (permis de travail, licence)
+  - Immigration (visa, carte de séjour)
+  - Documents administratifs (légalisation, attestation)
+  - Documents judiciaires (casier judiciaire)
+
+- **Métriques de performance** :
+  - ⏱️ Temps de réponse (moyenne, médiane, min, max)
+  - 🎯 Précision du retrieval (% de documents pertinents trouvés)
+  - ⭐ Pertinence de la réponse (score sur 5)
+  - 📊 Statistiques par catégorie
+
+- **Rapport détaillé** :
+  - Affichage console avec résultats en temps réel
+  - Sauvegarde JSON du rapport complet
+  - Statistiques globales et par catégorie
+
+### Exécution des tests
+
+#### Prérequis
+
+Assurez-vous que le backend Django est démarré :
+
+```bash
+cd backend
+python manage.py runserver
+```
+
+Le backend doit être accessible sur **http://localhost:8000**
+
+#### Lancer les tests
+
+```bash
+# Depuis la racine du projet
+python test_rag_system.py
+```
+
+Le script va :
+1. Vérifier que l'API est accessible
+2. Exécuter les 20 questions de test
+3. Afficher les résultats en temps réel
+4. Générer un rapport statistique complet
+5. Sauvegarder le rapport dans `rapport_test_rag.json`
+
+### Exemple de sortie
+
+```
+🤖 Test du système RAG - Agent IA
+================================================================================
+
+🔍 Vérification de l'API...
+✅ API accessible
+
+################################################################################
+                    DÉBUT DES TESTS - SYSTÈME RAG
+################################################################################
+
+Nombre de questions: 20
+API URL: http://localhost:8000/api/question/
+Nombre de résultats par question: 3
+
+================================================================================
+Test #1: Documents d'identité
+Question: Comment obtenir un passeport au Burkina Faso ?
+================================================================================
+
+📊 MÉTRIQUES:
+  ⏱️  Temps de réponse: 2.34s
+  🎯 Précision Retrieval: 66.7%
+  ⭐ Pertinence Réponse: 4.2/5
+
+💬 RÉPONSE (245 caractères):
+  Pour obtenir un passeport au Burkina Faso, vous devez...
+
+📚 SOURCES (3):
+  1. passeport.pdf (distance: 0.123)
+  2. mae.gov.bf (distance: 0.234)
+  3. service-public.fr (distance: 0.345)
+
+[... autres tests ...]
+
+################################################################################
+                    RAPPORT DE TEST - SYSTÈME RAG
+################################################################################
+
+📊 RÉSUMÉ
+────────────────────────────────────────────────────────────────────────────────
+  Tests total:      20
+  Tests réussis:    20 ✅
+  Tests échoués:    0 ❌
+  Taux de succès:   100.0%
+
+⏱️  TEMPS DE RÉPONSE
+────────────────────────────────────────────────────────────────────────────────
+  Moyenne:     2.145s
+  Médiane:     2.089s
+  Min:         1.234s
+  Max:         3.456s
+
+🎯 PRÉCISION RETRIEVAL (% documents pertinents)
+────────────────────────────────────────────────────────────────────────────────
+  Moyenne:     72.5%
+  Médiane:     75.0%
+
+⭐ PERTINENCE RÉPONSE (score sur 5)
+────────────────────────────────────────────────────────────────────────────────
+  Moyenne:     4.15/5
+  Médiane:     4.20/5
+
+✅ Tests terminés!
+✅ Rapport sauvegardé dans: rapport_test_rag.json
+```
+
+### Interprétation des résultats
+
+- **Temps de réponse** 
+- **Précision Retrieval** 
+- **Pertinence Réponse**
+
+### Personnalisation des tests
+
+Vous pouvez modifier le fichier `test_rag_system.py` pour :
+- Ajouter de nouvelles questions dans `TEST_DATASET`
+- Modifier le nombre de résultats : `N_RESULTATS = 3`
+- Changer l'URL de l'API : `API_URL = "http://localhost:8000/api/question/"`
+
+---
+
 ## 📁 Structure du projet
 
 ```
@@ -305,7 +429,7 @@ Agent_ia/
 │   ├── Dockerfile               # Configuration Docker
 │   └── README.md                # Documentation backend
 │
-├── Frontend/                    # Frontend React
+├── frontend/                    # Frontend React
 │   ├── src/
 │   │   ├── components/          # Composants React
 │   │   │   ├── chat/           # Composants de chat
@@ -324,18 +448,16 @@ Agent_ia/
 ├── pdf/                        # Documents PDF à indexer
 ├── chroma_db/                  # Base de données vectorielle
 ├── urls.txt                    # URLs à scraper
-├── launcher.py                 # Script de lancement
 ├── docker-compose.yml          # Configuration Docker Compose
-├── API_DOCUMENTATION.md        # Documentation API
+├── test_rag_system.py          # Script de test et évaluation
 └── README.md                   # Ce fichier
 ```
 
 ### Fichiers clés
 
-- **`launcher.py`** : Script de lancement interactif
 - **`backend/communication/agent_ia.py`** : Cœur du système RAG
 - **`backend/communication/views.py`** : Endpoints API
-- **`Frontend/src/services/`** : Communication avec l'API
+- **`frontend/src/services/`** : Communication avec l'API
 - **`docker-compose.yml`** : Configuration des conteneurs
 
 ---
@@ -379,7 +501,7 @@ CORS_ALLOWED_ORIGINS = [
 
 Le frontend se connecte au backend via `http://localhost:8000` par défaut.
 
-Pour changer l'URL de l'API, modifiez `Frontend/src/services/api.ts` :
+Pour changer l'URL de l'API, modifiez `frontend/src/services/api.ts` :
 
 ```typescript
 const API_BASE_URL = 'http://localhost:8000/api';
