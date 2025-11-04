@@ -10,6 +10,7 @@ services:
         environment:
             - OLLAMA_HOST=http://host.docker.internal:11434
             - DJANGO_SETTINGS_MODULE=backend_ia.settings
+            - DB_PATH=/app/chroma_db
         extra_hosts:
             - "host.docker.internal:host-gateway"
         networks:
